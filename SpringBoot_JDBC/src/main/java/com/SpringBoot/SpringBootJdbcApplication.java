@@ -34,9 +34,9 @@ public class SpringBootJdbcApplication implements CommandLineRunner {
 
 	private void createEmployee() {
 		Employee employee = new Employee();
-		employee.setEmployeeName("anand");
-		employee.setEmail("anand@gmail.com");
-		employee.setSalary(10000.09);
+		employee.setEmployeeName("test2");
+		employee.setEmail("navin@gmail.com");
+		employee.setSalary(9999.09);
 		
 		employeeDAO.createEmployee(employee);
 	}

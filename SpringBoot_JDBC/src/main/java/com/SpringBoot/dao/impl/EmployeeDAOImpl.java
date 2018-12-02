@@ -3,7 +3,10 @@ package com.SpringBoot.dao.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 import com.SpringBoot.dao.EmployeeDAO;
 import com.SpringBoot.modal.Employee;
@@ -15,10 +18,14 @@ public class EmployeeDAOImpl implements EmployeeDAO
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	
-
+	@Autowired
+	private PlatformTransactionManager transactionManager;
+	
 	@Override
-	@Transactional
+	//@Transactional
 	public void createEmployee(Employee employee) {
+		TransactionDefinition txDef = new DefaultTransactionDefinition();
+		TransactionStatus txStatus = transactionManager.getTransaction(txDef);
 		try
 		{
 		String CREATE_EMPLOYEE_QUERY_TEMP = "insert into employee_table_temp(employee_name,email,salary) values(?,?,?)";
@@ -32,12 +39,14 @@ public class EmployeeDAOImpl implements EmployeeDAO
 			System.out.println("CREATE_EMPLOYEE_QUERY is : "+CREATE_EMPLOYEE_QUERY);
 			if(update_main_table == 1)
 			{
+				transactionManager.commit(txStatus);
 				System.out.println("EMPLOYEE CREATED in MAIN TABLE.........");
 			}
 		}
 		}
 		catch(Exception e)
 		{
+			transactionManager.rollback(txStatus);
 			System.out.println("SOME Exception : "+e.getClass());
 			e.printStackTrace();
 		}
