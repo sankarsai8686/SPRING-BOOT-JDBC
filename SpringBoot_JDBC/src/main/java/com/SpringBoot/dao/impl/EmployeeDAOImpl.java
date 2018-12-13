@@ -1,5 +1,9 @@
 package com.SpringBoot.dao.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
@@ -76,4 +80,32 @@ public class EmployeeDAOImpl implements EmployeeDAO
 			System.out.println("Employee is Deleted......");
 		}
 	}
+	
+	@Override
+	public List<Employee> getAllEmployees()
+	{
+		System.out.println("getAllEmployees in Dao");
+		List<Employee> employee_list = new ArrayList<Employee>();
+		String query = "select * from employee_table";
+		/*List<Map<String,Object>> data = jdbcTemplate.queryForList(query);
+		for(Map<String,Object> row : data)
+		{
+			Employee employee = new Employee();
+			employee.setEmployeeName((String)row.get("employee_name"));
+			employee.setEmail((String)row.get("email"));
+			employee.setSalary((Double)row.get("salary"));
+			employee.setEmployeeId((Integer)row.get("employee_id"));
+			
+			employee_list.add(employee);
+			//System.out.println("EMPLOYEE LIST IN FOR LOOP : "+employee_list);
+		}
+		System.out.println("FINAL EMPLOYEE DATA : "+employee_list);
+*/		
+		List data = jdbcTemplate.queryForList(query);
+		System.out.println("final data : "+data);
+		return data;
+	}
+	
+	
+	
 }

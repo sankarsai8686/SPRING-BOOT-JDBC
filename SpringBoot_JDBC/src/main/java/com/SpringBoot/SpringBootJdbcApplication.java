@@ -4,11 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 
 import com.SpringBoot.dao.EmployeeDAO;
 import com.SpringBoot.modal.Employee;
 
 @SpringBootApplication
+@EnableCaching
 public class SpringBootJdbcApplication implements CommandLineRunner {
 
 	@Autowired
@@ -20,7 +22,7 @@ public class SpringBootJdbcApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		createEmployee();
+		//createEmployee();
 		//getEmployeeById(1);
 		//employeeDAO.updateEmployeeEmailById(2,"ravi123@gmail.com");
 		//employeeDAO.deleteEmployeeById(2);
